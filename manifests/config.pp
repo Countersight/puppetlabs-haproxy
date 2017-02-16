@@ -49,13 +49,6 @@ define haproxy::config (
       mode  => '0640',
     }
 
-    # validate_cmd introduced in Puppet 3.5
-    if ((!defined('$::puppetversion') or (versioncmp($::puppetversion, '3.5') >= 0)) and (!defined('$::serverversion') or versioncmp($::serverversion, '3.5') >= 0)) {
-      Concat[$_config_file] {
-        validate_cmd => '. /etc/sysconfig/haproxy && /usr/sbin/haproxy -f % $OPTIONS -c'
-      }
-    }
-
     # Simple Header
     concat::fragment { "${instance_name}-00-header":
       target  => $_config_file,
