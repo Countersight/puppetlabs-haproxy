@@ -22,6 +22,7 @@ define haproxy::service (
       file {"/etc/sysconfig/${instance_name}":
         content => $sysconfig_options,
         before  => Service[$instance_name],
+        require => Concat['/etc/haproxy/haproxy.cfg'],
       }
     }
 
